@@ -19,7 +19,6 @@ exports.validUserById = catchAsync(async (req, res, next) => {
 });
 
 exports.validIfExistUserEmail = catchAsync(async (req, res, next) => {
-  async (req, res, next) => {
     const { email } = req.body;
 
     const user = await User.findOne({
@@ -42,5 +41,4 @@ exports.validIfExistUserEmail = catchAsync(async (req, res, next) => {
     }
 
     next();
-  };
 });
