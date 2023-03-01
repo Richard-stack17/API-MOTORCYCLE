@@ -23,23 +23,6 @@ const findUser = async (req, res) => {
   });
 };
 
-const createUser = async (req, res) => {
-  const { name, email, password, role } = req.body;
-
-  const newUser = await User.create({
-    name: name.toLowerCase(),
-    email,
-    password,
-    role,
-  });
-
-  res.status(201).json({
-    status: 'success',
-    message: 'The user was created successfully',
-    newUser,
-  });
-};
-
 const updateUser = async (req, res) => {
   const { name, email } = req.body;
   const { user } = req;
@@ -69,7 +52,6 @@ const deleteUser = async (req, res) => {
 module.exports = {
   findUsers,
   findUser,
-  createUser,
   updateUser,
   deleteUser,
 };

@@ -7,13 +7,18 @@ const {
   updateRepair,
   deleteRepair,
 } = require('../controllers/repairs.controller');
-const { validIfServiceIsPending } = require('../middlewares/repairs.middleware');
+const { restrictTo, protect } = require('../middlewares/auth.middleware');
+const {
+  validIfServiceIsPending,
+} = require('../middlewares/repairs.middleware');
 const { validateFields } = require('../middlewares/validateField.middleware');
 
 const router = Router();
 
-router.get('/', findAllRepairs);
-router.get('/:id', validIfServiceIsPending ,findRepair);
+router.use(protect);
+
+router.get('/', restrictTo('employee'), findAllRepairs);
+router.get('/:id', restrictTo('employee'), validIfServiceIsPending, findRepair);
 router.post(
   '/',
   [
@@ -22,13 +27,23 @@ router.post(
     check('userId', 'the userId must be a number').isNumeric(),
     check('motorsNumber', 'the number of motors is required').not().isEmpty(),
     check('motorsNumber', 'the number of motors  must be a number').isNumeric(),
-    check('description','The description is required').not().isEmpty(),
+    check('description', 'The description is required').not().isEmpty(),
     validateFields,
   ],
   createRepair
 );
-router.patch('/:id', validIfServiceIsPending,updateRepair);
-router.delete('/:id', validIfServiceIsPending,deleteRepair);
+router.patch(
+  '/:id',
+  restrictTo('employee'),
+  validIfServiceIsPending,
+  updateRepair
+);
+router.delete(
+  '/:id',
+  restrictTo('employee'),
+  validIfServiceIsPending,
+  deleteRepair
+);
 
 module.exports = {
   repairsRouter: router,

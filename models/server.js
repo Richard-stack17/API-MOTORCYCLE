@@ -7,6 +7,7 @@ const { repairsRouter } = require('../routes/repair.routes');
 const initModel = require('./init.model');
 const globalErrorHandler = require('../controllers/error.controller');
 const AppError = require('../utils/appError');
+const { authRouter } = require('../routes/auth.routes');
 
 class Server {
   constructor() {
@@ -15,6 +16,7 @@ class Server {
     this.paths = {
       user: '/api/v1/user',
       repairs: '/api/v1/repairs',
+      auth: '/api/v1/auth',
     };
     this.database();
     this.middlewares();
@@ -32,6 +34,7 @@ class Server {
     this.app.use(express.json());
   }
   routes() {
+    this.app.use(this.paths.auth, authRouter);
     this.app.use(this.paths.user, usersRouter);
     this.app.use(this.paths.repairs, repairsRouter);
     this.app.all('*', (req, res, next) => {
