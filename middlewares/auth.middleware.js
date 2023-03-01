@@ -2,13 +2,14 @@ const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users.model');
+const { promisify } = require('util');
 
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
 
   if (
     req.headers.authorization &&
-    req.headers.authorization.startWith('Bearer')
+    req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
@@ -26,7 +27,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   const user = await User.findOne({
     where: {
-      id: decode.id,
+      id: decoded.id,
       status: true,
     },
   });

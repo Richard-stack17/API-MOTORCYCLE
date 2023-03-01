@@ -11,7 +11,7 @@ const generateJWT = id => {
         expiresIn: process.env.JWT_EXPIRES_IN,
       },
       (err, token) => {
-        if (er) {
+        if (err) {
           console.log(err);
           reject(err);
         }
