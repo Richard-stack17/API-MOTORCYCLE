@@ -8,7 +8,7 @@ const findUsers = async (req, res) => {
   });
 
   res.status(200).json({
-    status: 'succes',
+    status: 'success',
     message: 'The users found were succesfully',
     users,
   });

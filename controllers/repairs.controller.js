@@ -43,12 +43,14 @@ const findRepair = async (req, res) => {
 };
 
 const createRepair = async (req, res) => {
-  const { date, userId, motorsNumber, description } = req.body;
+  const { date, userId, motorsNumber, description, status='pending' } = req.body;
+  console.log(userId)
   const newRepair = await Repairs.create({
     date,
     userId,
     motorsNumber,
     description,
+    status,
   });
 
   return res.status(500).json({

@@ -1,8 +1,8 @@
+const { promisify } = require('util');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users.model');
-const { promisify } = require('util');
 
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
@@ -28,7 +28,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   const user = await User.findOne({
     where: {
       id: decoded.id,
-      status: true,
+      status: 'available',
     },
   });
 
