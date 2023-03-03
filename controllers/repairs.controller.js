@@ -43,8 +43,14 @@ const findRepair = async (req, res) => {
 };
 
 const createRepair = async (req, res) => {
-  const { date, userId, motorsNumber, description, status='pending' } = req.body;
-  console.log(userId)
+  const {
+    date,
+    userId,
+    motorsNumber,
+    description,
+    status = 'pending',
+  } = req.body;
+  console.log(userId);
   const newRepair = await Repairs.create({
     date,
     userId,
@@ -53,7 +59,7 @@ const createRepair = async (req, res) => {
     status,
   });
 
-  return res.status(500).json({
+  return res.status(200).json({
     status: 'success',
     message: 'The repair was created successfully',
     newRepair,
@@ -69,7 +75,7 @@ const updateRepair = async (req, res) => {
 
   return res.status(200).json({
     status: 'success',
-    message: 'The repair has been updated successfully'
+    message: 'The repair has been updated successfully',
   });
 };
 

@@ -16,7 +16,7 @@ const Repairs = db.define('repairs', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  description:{
+  description: {
     type: DataTypes.STRING,
     allowNull: false,
   },
