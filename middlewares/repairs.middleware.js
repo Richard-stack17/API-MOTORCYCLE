@@ -14,7 +14,7 @@ exports.validIfServiceIsPending = catchAsync(async (req, res, next) => {
 
   if (!repair) {
     return next(new AppError('The service is not pending', 400));
-  };
+  }
   req.repair = repair;
   next();
 });
